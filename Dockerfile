@@ -15,3 +15,7 @@ RUN set -x \
     && rm -rvf /var/lib/apt/lists/*
 
 COPY --from=0 /festival/lib/voices/* /usr/share/festival/voices/
+
+# paths are relative to voice, so chdir there
+WORKDIR /usr/share/festival/voices/eki_et_riina_clunits
+CMD [ "festival", "festvox/eki_et_riina_clunits.scm", "(voice_eki_et_riina_clunits)"]

@@ -18,3 +18,13 @@ Later on, copy the needed data to node image:
 COPY --from=synthts /app /app
 COPY --from=synthts /usr/bin/synthts_et /usr/bin
 ```
+
+## Testing synthts
+
+```
+docker build -t app .
+docker run --rm -v $(pwd)/spool:/spool \
+    app \
+    synthts_et -lex dct/et.dct -lexd dct/et3.dct -m htsvoices/eki_et_tnu.htsvoice -r 1.1 \
+    -f /spool/in.txt -o /spool/out_tnu.wav
+```

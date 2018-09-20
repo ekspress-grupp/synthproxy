@@ -18,7 +18,14 @@ app.post('/synth/v1/synth', async (req, res) => {
   if (!text) {
     return res.status(400).json({ error: 'missing text' });
   }
-  const url = await synth(text);
+
+  let url;
+  try {
+    url = await synth(text);
+  } catch (e) {
+    return res.status(500).json({ error: 'internal error' });
+  }
+
   res.json({
     url,
     // FIXME: remove - for testing!

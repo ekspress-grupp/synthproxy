@@ -14,8 +14,8 @@ const getVoiceFilePath = async (): Promise<string> =>
     );
   });
 
-function getSynthtsArguments(inputFile: string, outputFile: string): string[] {
-  /* tslint:disable:prettier */
+/* tslint:disable:prettier */
+const getSynthtsArguments = (inputFile: string, outputFile: string): string[] => {
   return [
     '-lex', 'dct/et.dct',
     '-lexd', 'dct/et3.dct',
@@ -24,8 +24,8 @@ function getSynthtsArguments(inputFile: string, outputFile: string): string[] {
     '-f', inputFile,
     '-o', outputFile,
   ];
-  /* tslint:enable:prettier */
-}
+};
+/* tslint:enable:prettier */
 
 export default async (tmpFile: string): Promise<string> =>
   new Promise<string>(async resolve => {

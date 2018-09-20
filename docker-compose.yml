@@ -9,9 +9,9 @@ services:
     ports:
       - 3382:3382
     environment:
-      - PUBLIC_URL=http://volgin.delfi.lan:3381
+      - PUBLIC_URL=http://synthproxy.example.net/synth/v1/files
     labels:
-      traefik.frontend.rule: "Host:eki-tts.reviewapp.internal.lan"
+      traefik.frontend.rule: "Host:synthproxy.example.net"
     logging:
       driver: json-file
       options:

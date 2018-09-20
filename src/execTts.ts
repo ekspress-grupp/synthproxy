@@ -2,7 +2,8 @@ import { execFile } from 'child_process';
 import * as path from 'path';
 import { tmpName } from 'tmp';
 
-const pubDir = path.join(__dirname, '../public');
+import { filesDir } from './synth';
+
 const synthtsDir = '/usr/share/synthts';
 // const synthtsDir = '.';
 const lexFile = path.join(synthtsDir, 'dct/et.dct');
@@ -12,7 +13,7 @@ const voiceFile = path.join(synthtsDir, 'htsvoices/eki_et_tnu.htsvoice');
 const getVoiceFilePath = async (): Promise<string> =>
   new Promise<string>(resolve => {
     tmpName(
-      { template: `${pubDir}/XXXXXX.wav` },
+      { template: `${filesDir}/XXXXXX.wav` },
       (err: Error, filename: string) => {
         resolve(filename);
       },

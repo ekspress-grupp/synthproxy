@@ -44,5 +44,4 @@ docker-compose up -d
 
 urls in vulcan:
 
-- api: http://eki-tts.reviewapp.internal.lan/synth/v1/synth
-- storage: http://eki-tts-storage.reviewapp.internal.lan/{filename}
+- api: http://synthproxy.reviewapp.internal.lan/synth/v1/synth

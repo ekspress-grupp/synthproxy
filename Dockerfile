@@ -1,21 +1,18 @@
-# docker with festival and et voices installed
+# docker with synthts_et installed
+# https://github.com/ikiissel/synthts_et
 # https://www.eki.ee/heli/index.php?option=com_content&view=article&id=6&Itemid=465#LINUX
-
-FROM alpine
-
-RUN apk add --no-cache curl
-RUN curl -sSfLO https://www.eki.ee/heli/download/festvox_eki_et_riina_clunits.tar.gz
-RUN tar xf festvox_eki_et_riina_clunits.tar.gz
 
 FROM debian:9
 
-RUN set -x \
-	&& apt-get update \
-	&& apt-get install -y festival \
-    && rm -rvf /var/lib/apt/lists/*
+RUN apt-get update
+RUN apt-get install -y build-essential git autoconf
 
-COPY --from=0 /festival/lib/voices/* /usr/share/festival/voices/
+ARG SYNTHTS_ET_URL=https://github.com/ikiissel/synthts_et.git
+ARG SYNTHTS_ET_COMMIT=master
 
-# paths are relative to voice, so chdir there
-WORKDIR /usr/share/festival/voices/eki_et_riina_clunits
-CMD [ "festival", "festvox/eki_et_riina_clunits.scm", "(voice_eki_et_riina_clunits)"]
+RUN git clone $SYNTHTS_ET_URL -b $SYNTHTS_ET_COMMIT /usr/src/synthts_et
+WORKDIR /usr/src/synthts_et/synthts_et
+
+RUN autoreconf -fiv
+RUN ./configure
+RUN make install

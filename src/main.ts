@@ -1,16 +1,15 @@
 import * as bodyParser from 'body-parser';
 import * as express from 'express';
-
+import { hostname } from 'os';
 import synth from './synth';
 
 const app: express.Express = express();
-
 const port = process.env.PORT || 3000;
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get('/synth/v1/health_check', (req, res) => {
-  res.send(`ok:${+new Date()}[${require('os').hostname()}]`);
+  res.send(`ok:${+new Date()}[${hostname()}]`);
 });
 
 // curl -X POST "http://localhost:3000/synth/v1/synth" --data "text=test kala"

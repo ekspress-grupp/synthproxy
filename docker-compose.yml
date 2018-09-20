@@ -10,6 +10,11 @@ services:
       - 3381:80
     labels:
       traefik.frontend.rule: "Host:eki-tts-storage.example.net"
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "10"
 
   api:
     image: node:8
@@ -21,3 +26,8 @@ services:
       - 3382:3000
     labels:
       traefik.frontend.rule: "Host:eki-tts.reviewapp.internal.lan"
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "10"

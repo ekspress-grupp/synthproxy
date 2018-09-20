@@ -1,7 +1,7 @@
 import * as bodyParser from 'body-parser';
 import * as express from 'express';
 
-import sync from './sync';
+import synth from './synth';
 
 const app: express.Express = express();
 
@@ -19,7 +19,7 @@ app.post('/synth/v1/synth', async (req, res) => {
   if (!text) {
     return res.status(400).json({ error: 'missing text' });
   }
-  const url = await sync(text);
+  const url = await synth(text);
   res.json({
     url,
     // FIXME: remove - for testing!

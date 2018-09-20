@@ -28,3 +28,16 @@ docker run --rm -v $(pwd)/spool:/spool \
     synthts_et -lex dct/et.dct -lexd dct/et3.dct -m htsvoices/eki_et_tnu.htsvoice -r 1.1 \
     -f /spool/in.txt -o /spool/out_tnu.wav
 ```
+
+## Setup (docker-compose)
+
+```sh
+git clone https://github.com/ekspress-digital/synthproxy /srv/synthproxy
+cd /srv/synthproxy
+docker-compose up -d
+```
+
+urls in vulcan:
+
+- api: http://eki-tts.reviewapp.internal.lan/synth/v1/synth
+- storage: http://eki-tts-storage.reviewapp.internal.lan/{filename}

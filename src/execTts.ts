@@ -27,6 +27,6 @@ export default async (tmpFile: string): Promise<string> =>
       console.log(`stdout: ${stdout}`);
       console.log(`stderr: ${stderr}`);
 
-      resolve('');
+      resolve(path.basename(voiceFile));
     });
   });

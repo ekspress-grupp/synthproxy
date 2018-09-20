@@ -6,8 +6,8 @@ export default async (text: string): Promise<string> => {
   const tmpFile = await writeToTmpFile(text);
   console.log('tmpFile', tmpFile);
 
-  await execTts(tmpFile);
+  const fileName = await execTts(tmpFile);
 
   // TODO: make cli call
-  return 'https://exampl.com/test.mp3';
+  return `https://exampl.com/${fileName}`;
 };

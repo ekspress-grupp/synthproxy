@@ -1,0 +1,23 @@
+version: "3.3"
+
+services:
+
+  nginx:
+    image: nginx:alpine
+    volumes:
+      - ./public:/usr/share/nginx/html:ro
+    ports:
+      - 3381:80
+    labels:
+      traefik.frontend.rule: "Host:eki-tts-storage.example.net"
+
+  api:
+    image: node:8
+    volumes:
+      - ./:/app
+    working_dir: /app
+    command: 'sh -c "yarn && yarn start"'
+    ports:
+      - 3382:3000
+    labels:
+      traefik.frontend.rule: "Host:eki-tts.reviewapp.internal.lan"

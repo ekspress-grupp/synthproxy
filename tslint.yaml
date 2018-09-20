@@ -1,0 +1,17 @@
+extends:
+  # bottom line is tslint recommended rules
+  - tslint:recommended
+  # our eslint styles is just wrapper on top of airbnb, use same also in typescript
+  - tslint-config-airbnb
+  # let prettier to make all the code formatting
+  - tslint-config-prettier
+  # use prettier as rule for tslint
+  - tslint-plugin-prettier
+
+rules:
+  # allow console for development
+  # https://palantir.github.io/tslint/rules/no-console/
+  no-console: false
+
+  # report prettier errors when linting with tslint
+  prettier: true

@@ -1,0 +1,10 @@
+# https://prettier.io/docs/en/options.html
+# https://prettier.io/docs/en/configuration.html
+
+# Use single quotes instead of double quotes.
+# https://prettier.io/docs/en/options.html#quotes
+singleQuote: true
+
+# Print trailing commas wherever possible...
+# https://prettier.io/docs/en/options.html#trailing-commas
+trailingComma: all

@@ -15,3 +15,6 @@ rules:
 
   # report prettier errors when linting with tslint
   prettier: true
+
+  # useless rule!
+  object-literal-sort-keys: false

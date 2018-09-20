@@ -5,6 +5,7 @@ import synth from './synth';
 
 const app: express.Express = express();
 const port = process.env.PORT || 3000;
+const publicUrl = process.env.PUBLIC_URL || `http://localhost:${port}/`;
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -21,7 +22,7 @@ app.post('/synth/v1/synth', async (req, res) => {
 
   let url;
   try {
-    url = await synth(text);
+    url = await synth(publicUrl, text);
   } catch (e) {
     return res.status(500).json({ error: 'internal error' });
   }
@@ -35,4 +36,5 @@ app.post('/synth/v1/synth', async (req, res) => {
 
 app.listen(port, () => {
   console.log(`Server is now running on http://localhost:${port}`);
+  console.log(`Audio content will be prefixed with ${publicUrl}`);
 });

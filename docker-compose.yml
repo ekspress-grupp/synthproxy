@@ -22,6 +22,8 @@ services:
       - ./public:/app/public
     ports:
       - 3382:3000
+    environment:
+      - PUBLIC_URL=http://volgin.delfi.lan:3381
     labels:
       traefik.frontend.rule: "Host:eki-tts.reviewapp.internal.lan"
     logging:

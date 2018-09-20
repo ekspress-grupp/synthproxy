@@ -4,7 +4,7 @@ import { hostname } from 'os';
 import synth from './synth';
 
 const app: express.Express = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3382;
 const publicUrl = process.env.PUBLIC_URL || `http://localhost:${port}/`;
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -13,7 +13,7 @@ app.get('/synth/v1/health_check', (req, res) => {
   res.send(`ok:${+new Date()}[${hostname()}]`);
 });
 
-// curl -X POST "http://localhost:3000/synth/v1/synth" --data "text=test kala"
+// curl -X POST "http://localhost:3382/synth/v1/synth" --data "text=test kala"
 app.post('/synth/v1/synth', async (req, res) => {
   const { text } = req.body;
   if (!text) {

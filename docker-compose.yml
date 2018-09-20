@@ -21,7 +21,7 @@ services:
     volumes:
       - ./public:/app/public
     ports:
-      - 3382:3000
+      - 3382:3382
     environment:
       - PUBLIC_URL=http://volgin.delfi.lan:3381
     labels:

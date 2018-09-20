@@ -32,9 +32,9 @@ COPY --from=synthts /usr/bin/synthts_et /usr/bin
 COPY --from=build /app/node_modules/ /app/node_modules/
 COPY --from=build /app/build /app/build/
 
-EXPOSE 3000
+EXPOSE 3382
 ENV NODE_ENV production
-ENV PORT 3000
+ENV PORT 3382
 
 USER node
 CMD ["node", "build/main.js"]

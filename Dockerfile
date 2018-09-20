@@ -10,6 +10,9 @@ FROM $NODE_IMAGE AS build
 
 WORKDIR /app
 
+# copy synthts data, to skip layer in runtime image
+COPY --from=synthts /app /app
+
 # Install app dependencies
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
 # where available (npm@5+)
@@ -24,7 +27,6 @@ RUN rm yarn.lock .yarnrc
 FROM $NODE_IMAGE
 
 WORKDIR /app
-COPY --from=synthts /app /app
 COPY --from=synthts /usr/bin/synthts_et /usr/bin
 COPY --from=build /app /app
 

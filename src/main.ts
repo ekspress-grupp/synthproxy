@@ -9,6 +9,7 @@ const publicUrl =
   process.env.PUBLIC_URL || `http://localhost:${port}/synth/v1/files`;
 
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.get('/synth/v1/health_check', (req, res) => {
   res.send(`ok:${+new Date()}[${hostname()}]`);

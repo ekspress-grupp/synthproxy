@@ -10,11 +10,12 @@ FROM $NODE_IMAGE AS build
 
 WORKDIR /app
 
-# copy app code
-COPY . /app
-
-# run node install
+# Install only app dependencies, to cache yarn install
+COPY package.json yarn.lock ./
 RUN yarn install
+
+# bundle rest of the app source
+COPY . .
 
 # run typescript to javascript build
 RUN yarn build

@@ -1,13 +1,12 @@
-import { exec } from 'child_process';
+import { execFile } from 'child_process';
 import * as path from 'path';
-
-import * as tmp from 'tmp';
+import { tmpName } from 'tmp';
 
 const pubDir = path.join(__dirname, '../public');
 
 const getVoiceFilePath = async (): Promise<string> =>
   new Promise<string>(resolve => {
-    tmp.tmpName(
+    tmpName(
       { template: `${pubDir}/XXXXXX.mp3` },
       (err: Error, filename: string) => {
         resolve(filename);
@@ -15,12 +14,27 @@ const getVoiceFilePath = async (): Promise<string> =>
     );
   });
 
+function getSynthtsArguments(inputFile: string, outputFile: string): string[] {
+  /* tslint:disable:prettier */
+  return [
+    '-lex', 'dct/et.dct',
+    '-lexd', 'dct/et3.dct',
+    '-m', 'htsvoices/eki_et_tnu.htsvoice',
+    '-r', '1.1',
+    '-f', inputFile,
+    '-o', outputFile,
+  ];
+  /* tslint:enable:prettier */
+}
+
 export default async (tmpFile: string): Promise<string> =>
   new Promise<string>(async resolve => {
     const voiceFile = await getVoiceFilePath();
-    exec(`sh -c "sleep 3 && date > ${voiceFile}"`, (err, stdout, stderr) => {
-      if (err) {
-        throw err;
+    const args = getSynthtsArguments(tmpFile, voiceFile);
+
+    const child = execFile('synthts_et', args, (error, stdout, stderr) => {
+      if (error) {
+        throw error;
       }
 
       // the *entire* stdout and stderr (buffered)

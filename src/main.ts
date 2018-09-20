@@ -32,8 +32,6 @@ app.post('/synth/v1/synth', async (req, res) => {
 
   res.json({
     url,
-    // FIXME: remove - for testing!
-    text,
   });
 });
 

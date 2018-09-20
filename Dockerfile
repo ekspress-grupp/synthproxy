@@ -19,4 +19,7 @@ RUN make install
 
 FROM debian:9
 
+WORKDIR /app
+COPY --from=0 /usr/src/synthts_et/synthts_et/dct /app/dct/
+COPY --from=0 /usr/src/synthts_et/synthts_et/htsvoices/ /app/htsvoices/
 COPY synthts_et /usr/bin

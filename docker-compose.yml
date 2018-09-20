@@ -2,20 +2,6 @@ version: "3.3"
 
 services:
 
-  nginx:
-    image: nginx:alpine
-    volumes:
-      - ./public:/usr/share/nginx/html:ro
-    ports:
-      - 3381:80
-    labels:
-      traefik.frontend.rule: "Host:eki-tts-storage.example.net"
-    logging:
-      driver: json-file
-      options:
-        max-size: "10m"
-        max-file: "10"
-
   api:
     build: .
     volumes:

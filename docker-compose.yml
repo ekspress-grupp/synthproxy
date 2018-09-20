@@ -12,6 +12,7 @@ services:
       - PUBLIC_URL=http://synthproxy.example.net/synth/v1/files
     labels:
       traefik.frontend.rule: "Host:synthproxy.example.net"
+    restart: always
     logging:
       driver: json-file
       options:

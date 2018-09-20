@@ -17,11 +17,9 @@ services:
         max-file: "10"
 
   api:
-    image: node:8
+    build: .
     volumes:
-      - ./:/app
-    working_dir: /app
-    command: 'sh -c "yarn && yarn start"'
+      - ./public:/app/public
     ports:
       - 3382:3000
     labels:

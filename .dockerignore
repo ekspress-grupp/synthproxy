@@ -7,3 +7,7 @@
 !/.yarnrc
 !/node_modules
 !/build
+
+# for yarn build
+!/src
+!/tsconfig.json

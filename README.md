@@ -35,6 +35,11 @@ docker run --rm -v $(pwd)/spool:/spool \
 git clone https://github.com/ekspress-digital/synthproxy /srv/synthproxy
 cd /srv/synthproxy
 docker-compose up -d
+
+# to upgrade
+git pull
+docker-compose build
+docker-compose up -d
 ```
 
 urls in vulcan:

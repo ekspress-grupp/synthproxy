@@ -10,25 +10,25 @@ FROM $NODE_IMAGE AS build
 
 WORKDIR /app
 
-# copy synthts data, to skip layer in runtime image
-COPY --from=synthts /app /app
+# copy app code
+COPY  . /app
 
-# Install app dependencies
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-# where available (npm@5+)
-COPY package*.json ./
+# run node install
+RUN yarn install
+
+# run typescript to javascript build
+RUN yarn build
+
+# remove dev packages
 RUN yarn install --production
-
-# bundle rest of the app source
-COPY . .
-RUN rm yarn.lock .yarnrc
 
 # assemble runtime image
 FROM $NODE_IMAGE
 
 WORKDIR /app
 COPY --from=synthts /usr/bin/synthts_et /usr/bin
-COPY --from=build /app /app
+COPY --from=build /app/build /app/build
+COPY --from=build /app/node_modules /app/node_modules
 
 EXPOSE 3000
 ENV NODE_ENV production

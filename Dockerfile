@@ -16,3 +16,7 @@ RUN git checkout $SYNTHTS_ET_COMMIT
 RUN autoreconf -fiv
 RUN ./configure
 RUN make install
+
+FROM debian:9
+
+COPY synthts_et /usr/bin

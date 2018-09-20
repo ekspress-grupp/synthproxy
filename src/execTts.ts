@@ -12,7 +12,7 @@ const voiceFile = path.join(synthtsDir, 'htsvoices/eki_et_tnu.htsvoice');
 const getVoiceFilePath = async (): Promise<string> =>
   new Promise<string>(resolve => {
     tmpName(
-      { template: `${pubDir}/XXXXXX.mp3` },
+      { template: `${pubDir}/XXXXXX.wav` },
       (err: Error, filename: string) => {
         resolve(filename);
       },

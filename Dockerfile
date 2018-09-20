@@ -1,4 +1,4 @@
-ARG SYNTHTS_IMAGE=egrupp/synthproxy:synthts-v1
+ARG SYNTHTS_IMAGE=egrupp/synthproxy:synthts-v2
 ARG NODE_IMAGE=node:8-stretch
 
 # create alias to refer it in runtime image
@@ -11,7 +11,7 @@ FROM $NODE_IMAGE AS build
 WORKDIR /app
 
 # copy app code
-COPY  . /app
+COPY . /app
 
 # run node install
 RUN yarn install
@@ -26,9 +26,10 @@ RUN yarn install --production
 FROM $NODE_IMAGE
 
 WORKDIR /app
+COPY --from=synthts /usr/share/synthts/ /usr/share/synthts/
 COPY --from=synthts /usr/bin/synthts_et /usr/bin
-COPY --from=build /app/build /app/build
-COPY --from=build /app/node_modules /app/node_modules
+COPY --from=build /app/node_modules/ /app/node_modules/
+COPY --from=build /app/build /app/build/
 
 EXPOSE 3000
 ENV NODE_ENV production

@@ -3,6 +3,11 @@ import * as path from 'path';
 import { tmpName } from 'tmp';
 
 const pubDir = path.join(__dirname, '../public');
+const synthtsDir = '/usr/share/synthts';
+// const synthtsDir = '.';
+const lexFile = path.join(synthtsDir, 'dct/et.dct');
+const lexdFile = path.join(synthtsDir, 'dct/et3.dct');
+const voiceFile = path.join(synthtsDir, 'htsvoices/eki_et_tnu.htsvoice');
 
 const getVoiceFilePath = async (): Promise<string> =>
   new Promise<string>(resolve => {
@@ -17,9 +22,9 @@ const getVoiceFilePath = async (): Promise<string> =>
 /* tslint:disable:prettier */
 const getSynthtsArguments = (inputFile: string, outputFile: string): string[] => {
   return [
-    '-lex', 'dct/et.dct',
-    '-lexd', 'dct/et3.dct',
-    '-m', 'htsvoices/eki_et_tnu.htsvoice',
+    '-lex', lexFile,
+    '-lexd', lexdFile,
+    '-m', voiceFile,
     '-r', '1.1',
     '-f', inputFile,
     '-o', outputFile,
@@ -29,8 +34,8 @@ const getSynthtsArguments = (inputFile: string, outputFile: string): string[] =>
 
 export default async (tmpFile: string): Promise<string> =>
   new Promise<string>(async resolve => {
-    const voiceFile = await getVoiceFilePath();
-    const args = getSynthtsArguments(tmpFile, voiceFile);
+    const audioFile = await getVoiceFilePath();
+    const args = getSynthtsArguments(tmpFile, audioFile);
 
     const child = execFile('synthts_et', args, (error, stdout, stderr) => {
       if (error) {
@@ -41,6 +46,6 @@ export default async (tmpFile: string): Promise<string> =>
       console.log(`stdout: ${stdout}`);
       console.log(`stderr: ${stderr}`);
 
-      resolve(path.basename(voiceFile));
+      resolve(path.basename(audioFile));
     });
   });

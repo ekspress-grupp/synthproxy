@@ -13,8 +13,21 @@ services:
     labels:
       traefik.frontend.rule: "Host:synthproxy.example.net"
     restart: always
+    env_file: .env
     logging:
       driver: json-file
       options:
         max-size: "10m"
         max-file: "10"
+
+  minio:
+    image: minio/minio:latest
+    environment:
+      MINIO_ACCESS_KEY: S3_ACCESS_KEY
+      MINIO_SECRET_KEY: S3_SECRET_KEY
+    ports:
+    # http://localhost:3383/
+    - "3383:9000"
+    command:
+    - server
+    - /export

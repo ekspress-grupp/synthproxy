@@ -11,17 +11,17 @@
     "precommit": "lint-staged"
   },
   "dependencies": {
-    "@types/minio": "^7.0.0",
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
-    "minio": "^7.0.1",
     "fluent-ffmpeg": "^2.1.2",
+    "minio": "^7.0.1",
     "tmp": "^0.0.33"
   },
   "devDependencies": {
     "@types/body-parser": "^1.17.0",
     "@types/express": "^4.11.1",
     "@types/fluent-ffmpeg": "^2.1.7",
+    "@types/minio": "^7.0.0",
     "@types/node": "^9.6.8",
     "@types/tmp": "^0.0.33",
     "husky": "^0.14.3",

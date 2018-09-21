@@ -29,7 +29,8 @@ FROM $NODE_IMAGE
 # install ffmpeg
 RUN apt-get update \
  && apt-get install -y ffmpeg \
- && apt-get clean
+ && apt-get clean \
+ && install -d -o node /app/public
 
 WORKDIR /app
 COPY --from=synthts /usr/share/synthts/ /usr/share/synthts/

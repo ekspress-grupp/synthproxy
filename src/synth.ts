@@ -1,9 +1,13 @@
+import * as fs from 'fs';
 import * as path from 'path';
 import audioConvert from './audioConvert';
 import execTts from './execTts';
+import uploadToS3 from './uploadToS3';
 import writeToTmpFile from './writeToTmpFile';
 
 export const filesDir = path.join(__dirname, '../public');
+const STORAGE_DRIVER = String(process.env.STORAGE_DRIVER);
+export default async (publicUrl: string, text: string): Promise<string> => {
 
 export interface ISynthOptions {
   extension?: string;
@@ -21,7 +25,20 @@ export default async (
   let fileName = await execTts(tmpFile);
 
   if (options.extension) {
-    fileName = await audioConvert(fileName, options.extension);
+      fileName = await audioConvert(fileName, options.extension);
+  }
+
+  if (STORAGE_DRIVER === 'S3') {
+    const S3URL = await uploadToS3(fileName);
+    const file = path.join(filesDir, fileName);
+    fs.unlink(file, (err: Error) => {
+      if (err) {
+        throw err;
+      }
+      console.log('removed-old-wav', file);
+    });
+
+    return `${S3URL}`;
   }
 
   return `${publicUrl}/${fileName}`;

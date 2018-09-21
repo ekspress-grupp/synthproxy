@@ -41,7 +41,3 @@ git pull
 docker-compose build
 docker-compose up -d
 ```
-
-urls in vulcan:
-
-- api: http://synthproxy.reviewapp.internal.lan/synth/v1/synth

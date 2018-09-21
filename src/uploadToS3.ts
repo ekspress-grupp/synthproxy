@@ -30,27 +30,29 @@ export default async (fileName: any) => {
     'Content-Type': 'audio/mp3',
   };
 
-  await new Promise((resolve, reject) => {
+  await new Promise(resolve => {
     client.fPutObject(
       S3_BUCKET,
       fileName,
       fileToUpload,
       metaData,
       (err: any) => {
-        if (!err) {
-          resolve();
+        if (err) {
+          console.log('upload error', err);
+          throw err;
         }
-        console.log('upload error', err);
-        reject(err);
+        resolve();
       },
     );
   });
+
   fs.unlink(fileToUpload, (err: Error) => {
     if (err) {
       throw err;
     }
-    console.log('removed-old-wav', fileToUpload);
+    console.log('removed local file', fileToUpload);
   });
+
   return new Promise((resolve, reject) => {
     client.presignedUrl('GET', S3_BUCKET, fileName, (err, presignedUrl) => {
       if (err) reject(err);

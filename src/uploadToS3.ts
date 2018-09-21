@@ -2,6 +2,7 @@ import * as path from 'path';
 
 import { Client } from 'minio';
 
+import * as fs from 'fs';
 import { filesDir } from './synth';
 
 const S3_BUCKET = String(process.env.S3_BUCKET);
@@ -44,7 +45,12 @@ export default async (fileName: any) => {
       },
     );
   });
-
+  fs.unlink(fileToUpload, (err: Error) => {
+    if (err) {
+      throw err;
+    }
+    console.log('removed-old-wav', fileToUpload);
+  });
   return new Promise((resolve, reject) => {
     client.presignedUrl('GET', S3_BUCKET, fileName, (err, presignedUrl) => {
       if (err) reject(err);

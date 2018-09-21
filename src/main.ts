@@ -12,7 +12,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.get('/synth/v1/health_check', (req, res) => {
-  res.send(`ok:${+new Date()}[${hostname()}]`);
+  res.send(
+    // MONOCHART_APP_VERSION is present in k8s deployment
+    `ok:${+new Date()}[${hostname()}][${process.env.MONOCHART_APP_VERSION}]`,
+  );
 });
 
 app.use('/synth/v1/files', express.static(filesDir));

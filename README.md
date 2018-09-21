@@ -9,7 +9,7 @@ separately and node runtime docker image copies binaries and data from synthts
 image.
 
 ```
-docker build -f Dockerfile.debian -t synthts
+docker build -f Dockerfile.debian -t synthts .
 ```
 
 Later on, copy the needed data to node image:

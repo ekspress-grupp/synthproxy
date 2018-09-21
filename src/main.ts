@@ -17,7 +17,7 @@ app.get('/synth/v1/health_check', (req, res) => {
 
 app.use('/synth/v1/files', express.static(filesDir));
 
-// curl -X POST "http://localhost:3382/synth/v1/synth" --data "text=test kala"
+// curl -X POST "http://localhost:3382/synth/v1/synth" --data "extension=mp3&text=test kala"
 app.post('/synth/v1/synth', async (req, res) => {
   const { text } = req.body;
   if (!text) {
@@ -26,7 +26,7 @@ app.post('/synth/v1/synth', async (req, res) => {
 
   let url;
   try {
-    url = await synth(publicUrl, text);
+    url = await synth(publicUrl, text, req.body);
   } catch (e) {
     return res.status(500).json({ error: 'internal error' });
   }

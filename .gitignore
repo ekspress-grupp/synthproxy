@@ -7,3 +7,5 @@
 /.idea
 /.vscode
 /public
+# for local development
+/docker-compose.override.yml

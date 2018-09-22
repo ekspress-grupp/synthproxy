@@ -34,13 +34,15 @@ const getSynthtsArguments = (inputFile: string, outputFile: string): string[] =>
 /* tslint:enable:prettier */
 
 export default async (tmpFile: string): Promise<string> =>
-  new Promise<string>(async resolve => {
+  new Promise<string>(async (resolve, reject) => {
     const audioFile = await getVoiceFilePath();
     const args = getSynthtsArguments(tmpFile, audioFile);
 
     const child = execFile('synthts_et', args, (error, stdout, stderr) => {
       if (error) {
-        throw error;
+        console.error('synthts_et-exec', error);
+        reject(error);
+        return;
       }
 
       // the *entire* stdout and stderr (buffered)

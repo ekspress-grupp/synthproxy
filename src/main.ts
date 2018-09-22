@@ -1,6 +1,7 @@
 import * as bodyParser from 'body-parser';
 import * as express from 'express';
 import { hostname } from 'os';
+import swagger from './swagger';
 import synth, { filesDir } from './synth';
 
 const app: express.Express = express();
@@ -10,6 +11,9 @@ const publicUrl =
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+// add swagger tooling
+swagger(app, true);
 
 app.get('/synth/v1/health_check', (req, res) => {
   res.send(

@@ -10,6 +10,7 @@ services:
       - 3382:3382
     environment:
       - PUBLIC_URL=http://synthproxy.example.net/synth/v1/files
+      - ROOT_URL=http://synthproxy.example.net/synth/v1
     labels:
       traefik.frontend.rule: "Host:synthproxy.example.net"
     restart: always

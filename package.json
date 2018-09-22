@@ -7,6 +7,7 @@
     "start-debugger": "nodemon nodemon --exec \"node --inspect --require ts-node/register src/main.ts\"",
     "build": "tsc",
     "lint": "tslint --format verbose --project tsconfig.json",
+    "swagger:lint": "swagger-tools validate swagger.yml",
     "prettier": "prettier --config ./.prettierrc.yaml --write \"{src,test}/**/*.{ts,json,md}\" \"**/*.md\"",
     "precommit": "lint-staged"
   },
@@ -32,6 +33,7 @@
     "lint-staged": "^7.2.0",
     "nodemon": "^1.17.3",
     "prettier": "^1.12.1",
+    "swagger-tools": "^0.10.4",
     "ts-node": "^6.0.2",
     "tslint": "^5.11.0",
     "tslint-config-airbnb": "^5.11.0",

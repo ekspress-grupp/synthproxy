@@ -9,8 +9,8 @@ const port = process.env.PORT || 3382;
 const publicUrl =
   process.env.PUBLIC_URL || `http://localhost:${port}/synth/v1/files`;
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: false }));
+app.use(bodyParser.json({ limit: '50mb' }));
 
 // add swagger tooling
 swagger(app, true);

@@ -43,7 +43,12 @@ app.post('/synth/v1/synth', async (req, res) => {
   });
 });
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`Server is now running on http://localhost:${port}`);
   console.log(`Audio content will be prefixed with ${publicUrl}`);
 });
+
+// set long timeout to avoid node http server killing connection
+// @link https://github.com/expressjs/express/issues/3330
+// it can take quite a long time time to make some bigger articles tts
+server.setTimeout(30 * 60 * 1000);

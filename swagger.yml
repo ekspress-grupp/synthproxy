@@ -33,7 +33,7 @@ paths:
         description: "audio file extension (type) to produce"
         type: "string"
         enum:
-#        - "wav"
+        - "wav"
         - "mp3"
       responses:
         200:

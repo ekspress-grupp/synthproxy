@@ -13,6 +13,10 @@ const changeFileExt = (filename: string, newExt: string): string => {
 
 export default (filename: string, extension: string): Promise<string> =>
   new Promise(resolve => {
+    if (extension === 'wav') {
+      // XXX: support wav as param (default file is wav)
+      return resolve(filename);
+    }
     if (extension !== 'mp3') {
       throw new Error(
         `file extension '${extension}' not supported! (try mp3?)`,

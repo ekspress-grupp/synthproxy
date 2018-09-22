@@ -5,22 +5,23 @@ services:
   api:
     build: .
     volumes:
-      - ./public:/app/public
+      - ./:/app
     ports:
       - 3382:3382
     environment:
-      - PUBLIC_URL=http://synthproxy.example.net/synth/v1/files
-      - ROOT_URL=http://synthproxy.example.net/synth/v1
-    labels:
-      traefik.frontend.rule: "Host:synthproxy.example.net"
-    restart: always
+      PUBLIC_URL: "http://localhost:3382/synth/v1/files"
+      ROOT_URL: "http://localhost:3382/synth/v1"
     env_file: .env
+    working_dir: /app
+    command: yarn start
     logging:
       driver: json-file
       options:
         max-size: "10m"
         max-file: "10"
 
+  # NB: if you don't want to test with minio, start only api container
+  # docker-compose up api
   minio:
     image: minio/minio:latest
     environment:

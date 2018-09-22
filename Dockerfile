@@ -37,6 +37,7 @@ COPY --from=synthts /usr/share/synthts/ /usr/share/synthts/
 COPY --from=synthts /usr/bin/synthts_et /usr/bin
 COPY --from=build /app/node_modules/ /app/node_modules/
 COPY --from=build /app/build /app/build/
+COPY --from=build /app/swagger.yml /app/swagger.yml
 
 EXPOSE 3382
 ENV NODE_ENV production

@@ -1,0 +1,66 @@
+swagger: "2.0"
+info:
+  description: "Synthesis audio files using EKI tts tooling"
+  version: "1.0.0"
+  title: "synthproxy"
+host: "localhost:3382"
+basePath: "/synth/v1"
+tags:
+- name: "synth"
+  description: "synth tts"
+schemes:
+- "http"
+paths:
+  /synth:
+    post:
+      tags:
+      - "synth"
+      summary: "Synthesis audio files using EKI tts tooling"
+      description: ""
+      operationId: "synth"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "formData"
+        name: "text"
+        description: "text to use for audio file synthesis"
+        required: true
+        type: "string"
+      - in: "formData"
+        name: "extension"
+        description: "audio file extension (type) to produce"
+        type: "string"
+        enum:
+#        - "wav"
+        - "mp3"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            items:
+              $ref: "#/definitions/SynthData"
+        400:
+          description: "Invalid input"
+          schema:
+            items:
+              $ref: "#/definitions/Error"
+        500:
+          description: "Internal error"
+          schema:
+            items:
+              $ref: "#/definitions/Error"
+definitions:
+  SynthData:
+    type: "object"
+    properties:
+      url:
+        type: "string"
+        description: "audio file url"
+  Error:
+    type: "object"
+    properties:
+      error:
+        type: "string"
+        description: "error message"

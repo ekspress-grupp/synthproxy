@@ -56,6 +56,24 @@ definitions:
         type: "string"
         description: "audio file url"
         example: "https://example.com/file.mp3"
+      meta:
+        $ref: "#/definitions/Meta"
+  Meta:
+    type: "object"
+    properties:
+      duration:
+        type: "number"
+        description: "duration in seconds"
+        example: 1234
+      size:
+        type: "number"
+        description: "size in bites"
+        example: 1234
+      voice:
+        type: "string"
+        description: "voice name"
+        example: "tonu"
+
   Error:
     type: "object"
     properties:

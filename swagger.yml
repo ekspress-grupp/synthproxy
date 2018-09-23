@@ -39,18 +39,15 @@ paths:
         200:
           description: "successful operation"
           schema:
-            items:
-              $ref: "#/definitions/SynthData"
+            $ref: "#/definitions/SynthData"
         400:
           description: "Invalid input"
           schema:
-            items:
-              $ref: "#/definitions/Error"
+            $ref: "#/definitions/Error"
         500:
           description: "Internal error"
           schema:
-            items:
-              $ref: "#/definitions/Error"
+            $ref: "#/definitions/Error"
 definitions:
   SynthData:
     type: "object"

@@ -31,15 +31,16 @@ app.post('/synth/v1/synth', async (req, res) => {
     return res.status(400).json({ error: 'missing text' });
   }
 
-  let url;
+  let urlAndMeta;
   try {
-    url = await synth(publicUrl, text, req.body);
+    urlAndMeta = await synth(publicUrl, text, req.body);
   } catch (e) {
     return res.status(500).json({ error: 'internal error' });
   }
 
   res.json({
-    url,
+    url: urlAndMeta.url,
+    meta: urlAndMeta.meta,
   });
 });
 

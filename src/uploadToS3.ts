@@ -30,11 +30,14 @@ export default async (fileName: any) => {
   const metaData = {
     'Content-Type': contentType(fileName),
   };
+  const d = new Date();
+  const s3FilePath = `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}/${d.getHours()}/${d.getMinutes()}${d.getMilliseconds()}-${fileName}`;
+  console.log('s3FilePath', s3FilePath);
 
   await new Promise(resolve => {
     client.fPutObject(
       S3_BUCKET,
-      fileName,
+      s3FilePath,
       fileToUpload,
       metaData,
       (err: any) => {
@@ -55,7 +58,7 @@ export default async (fileName: any) => {
   });
 
   return new Promise((resolve, reject) => {
-    client.presignedUrl('GET', S3_BUCKET, fileName, (err, presignedUrl) => {
+    client.presignedUrl('GET', S3_BUCKET, s3FilePath, (err, presignedUrl) => {
       if (err) reject(err);
       resolve(presignedUrl);
     });

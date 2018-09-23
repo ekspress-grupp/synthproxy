@@ -1,5 +1,6 @@
 import * as path from 'path';
 
+import { contentType } from 'mime-types';
 import { Client } from 'minio';
 
 import * as fs from 'fs';
@@ -27,7 +28,7 @@ export default async (fileName: any) => {
 
   const fileToUpload = path.join(filesDir, fileName);
   const metaData = {
-    'Content-Type': 'audio/mp3',
+    'Content-Type': contentType(fileName),
   };
 
   await new Promise(resolve => {

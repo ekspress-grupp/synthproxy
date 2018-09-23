@@ -55,9 +55,11 @@ definitions:
       url:
         type: "string"
         description: "audio file url"
+        example: "https://example.com/file.mp3"
   Error:
     type: "object"
     properties:
       error:
         type: "string"
         description: "error message"
+        example: "error"

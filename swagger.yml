@@ -67,14 +67,14 @@ definitions:
         example: 1234
       file_size:
         type: "number"
-        description: "file size in bites"
+        description: "file size in bytes"
         example: 1234
       voice_name:
         type: "string"
         description: "voice that was used in text to speech synthesis"
         example: "tonu"
       file_format:
-        type: "String"
+        type: "string"
         description: "audio file format"
         example: "mp3"
 

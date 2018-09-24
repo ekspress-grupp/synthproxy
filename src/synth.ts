@@ -1,5 +1,4 @@
 import * as path from 'path';
-import { file } from 'tmp';
 import audioConvert from './audioConvert';
 import execTts from './execTts';
 import getMeta from './getMeta';
@@ -11,7 +10,11 @@ const STORAGE_DRIVER = String(process.env.STORAGE_DRIVER);
 
 interface IoutputData {
   url: string;
-  meta: {};
+  meta: {
+    duration: number;
+    size: number;
+    voice: string;
+  };
 }
 
 export interface ISynthOptions {
@@ -32,7 +35,7 @@ export default async (
   if (options.extension) {
     fileName = await audioConvert(fileName, options.extension);
   }
-  const meta: any = await getMeta(fileName);
+  const meta = await getMeta(fileName);
 
   if (STORAGE_DRIVER === 'S3') {
     const S3URL = await uploadToS3(fileName);

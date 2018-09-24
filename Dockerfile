@@ -1,14 +1,8 @@
-ARG SYNTHTS_IMAGE=egrupp/synthproxy:synthts-v2
-ARG NODE_IMAGE=node:8-stretch
-
-# create alias to refer it in runtime image
-FROM $SYNTHTS_IMAGE AS synthts
+ARG BASE_IMAGE=egrupp/synthproxy:synthts-v3
 
 # build node app as separate stage
 # https://nodejs.org/en/docs/guides/nodejs-docker-webapp/
-FROM $NODE_IMAGE AS build
-
-WORKDIR /app
+FROM $BASE_IMAGE AS build
 
 # Install only app dependencies, to cache yarn install
 COPY package.json yarn.lock ./
@@ -24,17 +18,10 @@ RUN yarn build
 RUN yarn install --production
 
 # assemble runtime image
-FROM $NODE_IMAGE
+FROM $BASE_IMAGE
 
-# install ffmpeg
-RUN apt-get update \
- && apt-get install -y ffmpeg \
- && apt-get clean \
- && install -d -o node /app/public
-
-WORKDIR /app
-COPY --from=synthts /usr/share/synthts/ /usr/share/synthts/
-COPY --from=synthts /usr/bin/synthts_et /usr/bin
+COPY --from=build /usr/share/synthts/ /usr/share/synthts/
+COPY --from=build /usr/bin/synthts_et /usr/bin
 COPY --from=build /app/node_modules/ /app/node_modules/
 COPY --from=build /app/build /app/build/
 COPY --from=build /app/swagger.yml /app/swagger.yml

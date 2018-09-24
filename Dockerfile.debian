@@ -1,7 +1,11 @@
-# docker with synthts_et installed
+# build base image with rarely changing dependencies
+# - synthts_et
+# - ffmpeg
+# - nodejs runtime
 # https://github.com/ikiissel/synthts_et
 # https://www.eki.ee/heli/index.php?option=com_content&view=article&id=6&Itemid=465#LINUX
 
+# build synthts_et
 FROM debian:9
 
 RUN apt-get update
@@ -17,9 +21,18 @@ RUN autoreconf -fiv
 RUN ./configure
 RUN make install
 
-FROM debian:9
+# replace binary with pre-built version, as the built version segfaults
+COPY --from=egrupp/synthproxy:synthts-v2 /usr/bin/synthts_et .
+
+FROM node:8-stretch
+
+# install ffmpeg
+RUN apt-get update \
+ && apt-get install -y ffmpeg \
+ && apt-get clean \
+ && install -d -o node /app/public
 
 WORKDIR /app
 COPY --from=0 /usr/src/synthts_et/synthts_et/dct /usr/share/synthts/dct/
 COPY --from=0 /usr/src/synthts_et/synthts_et/htsvoices/ /usr/share/synthts/htsvoices/
-COPY synthts_et /usr/bin
+COPY --from=0 /usr/src/synthts_et/synthts_et/synthts_et /usr/bin

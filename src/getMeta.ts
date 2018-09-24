@@ -16,7 +16,7 @@ export default (filename: string): Promise<Imeta> =>
       }
 
       const meta = {
-        duration: metadata.format.duration,
+        duration: Math.trunc(metadata.format.duration),
         size: metadata.format.size,
       };
       resolve(meta);

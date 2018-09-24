@@ -15,7 +15,7 @@ const S3_SECRET_KEY = String(process.env.S3_SECRET_KEY);
 
 let client: Client;
 
-export default async (fileName: any) => {
+export default async (fileName: string) => {
   if (!client) {
     client = new Client({
       endPoint: S3_ENDPOINT,
@@ -57,7 +57,7 @@ export default async (fileName: any) => {
     console.log('removed local file', fileToUpload);
   });
 
-  return new Promise((resolve, reject) => {
+  return new Promise<string>((resolve, reject) => {
     client.presignedUrl('GET', S3_BUCKET, s3FilePath, (err, presignedUrl) => {
       if (err) reject(err);
       resolve(presignedUrl);

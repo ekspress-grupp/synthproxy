@@ -20,8 +20,6 @@ RUN yarn install --production
 # assemble runtime image
 FROM $BASE_IMAGE
 
-COPY --from=build /usr/share/synthts/ /usr/share/synthts/
-COPY --from=build /usr/bin/synthts_et /usr/bin
 COPY --from=build /app/node_modules/ /app/node_modules/
 COPY --from=build /app/build /app/build/
 COPY --from=build /app/swagger.yml /app/swagger.yml

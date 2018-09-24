@@ -9,7 +9,7 @@ export const filesDir = path.join(__dirname, '../public');
 const STORAGE_DRIVER = String(process.env.STORAGE_DRIVER);
 
 interface IOutputMeta {
-  voice: string;
+  voice_name: string;
   duration: number;
   size: number;
 }
@@ -40,7 +40,7 @@ export default async (
   const meta = await getMeta(fileName);
 
   const outputMeta: IOutputMeta = {
-    voice: 'tonu',
+    voice_name: 'tonu',
     duration: meta.duration,
     size: meta.size,
   };

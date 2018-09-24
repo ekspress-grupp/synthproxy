@@ -69,7 +69,7 @@ definitions:
         type: "number"
         description: "size in bites"
         example: 1234
-      voice:
+      voice_name:
         type: "string"
         description: "voice name"
         example: "tonu"

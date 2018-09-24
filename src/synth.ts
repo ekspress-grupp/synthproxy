@@ -12,6 +12,7 @@ interface IOutputMeta {
   voice_name: string;
   duration: number;
   size: number;
+  file_format: string;
 }
 
 interface IOutputData {
@@ -43,6 +44,7 @@ export default async (
     voice_name: 'tonu',
     duration: meta.duration,
     size: meta.size,
+    file_format: meta.file_format,
   };
 
   if (STORAGE_DRIVER === 'S3') {

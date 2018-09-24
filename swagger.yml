@@ -63,15 +63,15 @@ definitions:
     properties:
       duration:
         type: "number"
-        description: "duration in seconds"
+        description: "audio duration in seconds"
         example: 1234
       size:
         type: "number"
-        description: "size in bites"
+        description: "file size in bites"
         example: 1234
       voice_name:
         type: "string"
-        description: "voice name"
+        description: "voice that was used in text to speech synthesis"
         example: "tonu"
 
   Error:

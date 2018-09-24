@@ -61,11 +61,11 @@ definitions:
   Meta:
     type: "object"
     properties:
-      duration:
+      audio_duration:
         type: "number"
         description: "audio duration in seconds"
         example: 1234
-      size:
+      file_size:
         type: "number"
         description: "file size in bites"
         example: 1234
@@ -73,6 +73,10 @@ definitions:
         type: "string"
         description: "voice that was used in text to speech synthesis"
         example: "tonu"
+      file_format:
+        type: "String"
+        description: "audio file format"
+        example: "mp3"
 
   Error:
     type: "object"

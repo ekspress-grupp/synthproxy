@@ -10,8 +10,8 @@ const STORAGE_DRIVER = String(process.env.STORAGE_DRIVER);
 
 interface IOutputMeta {
   voice_name: string;
-  duration: number;
-  size: number;
+  audio_duration: number;
+  file_size: number;
   file_format: string;
 }
 
@@ -42,8 +42,8 @@ export default async (
 
   const outputMeta: IOutputMeta = {
     voice_name: 'tonu',
-    duration: meta.duration,
-    size: meta.size,
+    audio_duration: meta.duration,
+    file_size: meta.size,
     file_format: meta.file_format,
   };
 

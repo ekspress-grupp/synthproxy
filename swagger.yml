@@ -73,9 +73,9 @@ definitions:
         type: "string"
         description: "voice that was used in text to speech synthesis"
         example: "tonu"
-      file_format:
+      file_extension:
         type: "string"
-        description: "audio file format"
+        description: "audio file extension"
         example: "mp3"
 
   Error:

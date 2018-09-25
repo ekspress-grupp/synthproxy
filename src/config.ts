@@ -15,7 +15,7 @@ export const STORAGE_DRIVER = String(env.STORAGE_DRIVER);
 
 export const S3_BUCKET = String(env.S3_BUCKET);
 // FIXME: S3_ENDPOINT vs S3_END_POINT
-export const S3_ENDPOINT = String(env.S3_END_POINT);
+export const S3_ENDPOINT = String(env.S3_ENDPOINT || env.S3_END_POINT);
 export const S3_PORT = parseInt(env.S3_PORT as any, 10);
 export const S3_USE_SSL = S3_PORT === 443;
 export const S3_ACCESS_KEY = String(env.S3_ACCESS_KEY);

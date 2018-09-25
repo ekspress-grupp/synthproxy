@@ -9,8 +9,7 @@ import {
   setup as swaggerSetup,
 } from 'swagger-ui-express';
 import { ROOT_URL } from './config';
-
-const swaggerFile: string = path.join(__dirname, '../swagger.yml');
+import { swaggerFile } from './path';
 
 const getSwaggerData = async () =>
   new Promise(resolve => {

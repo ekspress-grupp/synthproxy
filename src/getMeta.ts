@@ -1,6 +1,6 @@
 import * as ffmpeg from 'fluent-ffmpeg';
 import * as path from 'path';
-import { filesDir } from './synth';
+import { filesDir } from './path';
 
 interface Imeta {
   duration: number;

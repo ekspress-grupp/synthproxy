@@ -8,8 +8,9 @@ import {
   port,
   publicUrl,
 } from './config';
+import { filesDir } from './path';
 import swagger from './swagger';
-import synth, { filesDir } from './synth';
+import synth from './synth';
 
 const app: express.Express = express();
 

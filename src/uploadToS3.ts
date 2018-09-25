@@ -1,18 +1,16 @@
-import * as path from 'path';
-
+import { filesDir } from './path';
+import { join as joinPath } from 'path';
 import { contentType } from 'mime-types';
 import { Client } from 'minio';
-
-import * as fs from 'fs';
-import { filesDir } from './synth';
+import { unlink } from 'fs';
 
 import {
+  S3_ACCESS_KEY,
   S3_BUCKET,
   S3_ENDPOINT,
   S3_PORT,
-  S3_USE_SSL,
-  S3_ACCESS_KEY,
   S3_SECRET_KEY,
+  S3_USE_SSL,
 } from './config';
 
 let client: Client;
@@ -28,7 +26,7 @@ export default async (fileName: string) => {
     });
   }
 
-  const fileToUpload = path.join(filesDir, fileName);
+  const fileToUpload = joinPath(filesDir, fileName);
   const metaData = {
     'Content-Type': contentType(fileName),
   };
@@ -52,7 +50,7 @@ export default async (fileName: string) => {
     );
   });
 
-  fs.unlink(fileToUpload, (err: Error) => {
+  unlink(fileToUpload, (err: Error) => {
     if (err) {
       throw err;
     }

@@ -1,12 +1,9 @@
-import * as path from 'path';
 import audioConvert from './audioConvert';
 import execTts from './execTts';
 import getMeta from './getMeta';
 import uploadToS3 from './uploadToS3';
 import writeToTmpFile from './writeToTmpFile';
 import { STORAGE_DRIVER } from './config';
-
-export const filesDir = path.join(__dirname, '../public');
 
 interface IOutputMeta {
   voice_name: string;

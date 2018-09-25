@@ -1,14 +1,7 @@
 import { execFile } from 'child_process';
-import * as path from 'path';
+import { basename } from 'path';
+import { filesDir, lexFile, lexdFile, voiceFile } from './path';
 import { tmpName } from 'tmp';
-
-import { filesDir } from './synth';
-
-const synthtsDir = '/usr/share/synthts';
-// const synthtsDir = '.';
-const lexFile = path.join(synthtsDir, 'dct/et.dct');
-const lexdFile = path.join(synthtsDir, 'dct/et3.dct');
-const voiceFile = path.join(synthtsDir, 'htsvoices/eki_et_tnu.htsvoice');
 
 const getVoiceFilePath = async (): Promise<string> =>
   new Promise<string>(resolve => {
@@ -49,6 +42,6 @@ export default async (tmpFile: string): Promise<string> =>
       console.log(`stdout: ${stdout}`);
       console.log(`stderr: ${stderr}`);
 
-      resolve(path.basename(audioFile));
+      resolve(basename(audioFile));
     });
   });

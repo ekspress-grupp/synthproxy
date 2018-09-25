@@ -1,9 +1,7 @@
-import * as fs from 'fs';
-import * as path from 'path';
-
-import * as ffmpeg from 'fluent-ffmpeg';
-
-import { filesDir } from './synth';
+import { default as ffmpeg } from 'fluent-ffmpeg';
+import { unlink } from 'fs';
+import { basename, join as joinPath } from 'path';
+import { filesDir } from './path';
 
 const changeFileExt = (filename: string, newExt: string): string => {
   const pieces = filename.split('.');
@@ -22,7 +20,7 @@ export default (filename: string, extension: string): Promise<string> =>
         `file extension '${extension}' not supported! (try mp3?)`,
       );
     }
-    const input = path.join(filesDir, filename);
+    const input = joinPath(filesDir, filename);
     const output = changeFileExt(input, extension);
     console.log('audioConvert', input, output);
 
@@ -33,9 +31,9 @@ export default (filename: string, extension: string): Promise<string> =>
         throw err;
       })
       .on('end', () => {
-        resolve(path.basename(output));
+        resolve(basename(output));
         // remove old file in background
-        fs.unlink(input, (err: Error) => {
+        unlink(input, (err: Error) => {
           if (err) {
             throw err;
           }

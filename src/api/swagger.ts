@@ -1,15 +1,13 @@
-import * as fs from 'fs';
-import * as path from 'path';
-import { URL } from 'url';
-
+import { ROOT_URL } from '../config';
 import { Express, Request, Response } from 'express';
+import * as fs from 'fs';
 import { safeLoad } from 'js-yaml';
 import {
-  serve as swaggerServe,
   setup as swaggerSetup,
+  serve as swaggerServe,
 } from 'swagger-ui-express';
-import { ROOT_URL } from './config';
-import { swaggerFile } from './path';
+import { URL } from 'url';
+import { swaggerFile } from '../path';
 
 const getSwaggerData = async () =>
   new Promise(resolve => {
@@ -38,8 +36,10 @@ export default (app: Express, redirectRoot: boolean) => {
   });
 
   if (redirectRoot) {
-    const redirectToSwaggerUI = (req: Request, res: Response) =>
+    const redirectToSwaggerUI = (req: Request, res: Response) => {
       res.redirect('/synth/v1/swagger-ui');
+    };
+
     // redirect app root path url to swagger ui
     app.get('/synth/v1', redirectToSwaggerUI);
     // and root url himself also (this should be accessible only in development)

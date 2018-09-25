@@ -1,4 +1,4 @@
-import { default as ffmpeg } from 'fluent-ffmpeg';
+import * as ffmpeg from 'fluent-ffmpeg';
 import { unlink } from 'fs';
 import { basename, join as joinPath } from 'path';
 import { filesDir } from './path';

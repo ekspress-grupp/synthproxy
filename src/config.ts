@@ -1,15 +1,12 @@
 const env = process.env;
 
-export const port = env.PORT || 3382;
-
-const DEFAULT_PUBLIC_URL = `http://localhost:${port}/synth/v1/files`;
-export const publicUrl = env.PUBLIC_URL || DEFAULT_PUBLIC_URL;
+export const HTTP_PORT = env.PORT || 3382;
 
 export const ROOT_URL: string = String(
-  env.ROOT_URL || 'http://localhost:3382/synth/v1',
+  env.ROOT_URL || `http://localhost:${HTTP_PORT}/synth/v1`,
 );
 
-export const maxPostSize = '50m';
+export const PUBLIC_URL: string = String(env.PUBLIC_URL || `${ROOT_URL}/files`);
 
 export const STORAGE_DRIVER = String(env.STORAGE_DRIVER);
 
@@ -22,6 +19,8 @@ export const S3_SECRET_KEY = String(env.S3_SECRET_KEY);
 
 // MONOCHART_APP_VERSION is present in k8s deployment
 export const MONOCHART_APP_VERSION = env.MONOCHART_APP_VERSION || '';
+
+export const HTTP_MAX_POST_SIZE = '50m';
 
 /**
  * set long timeout to avoid node http server killing connection
@@ -37,4 +36,4 @@ export const MONOCHART_APP_VERSION = env.MONOCHART_APP_VERSION || '';
  * @link https://nodejs.org/dist/latest-v6.x/docs/api/http.html#http_server_settimeout_msecs_callback
  * @type {number}
  */
-export const httpServerTimeoutMsec = 30 * 60 * 1000;
+export const HTTP_SERVER_TIMEOUT_MSEC = 30 * 60 * 1000;

@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { publicUrl } from '../config';
+import { PUBLIC_URL } from '../config';
 import synth from '../synth';
 
 export default async (req: Request, res: Response) => {
@@ -10,7 +10,7 @@ export default async (req: Request, res: Response) => {
 
   let urlAndMeta;
   try {
-    urlAndMeta = await synth(publicUrl, text, req.body);
+    urlAndMeta = await synth(PUBLIC_URL, text, req.body);
   } catch (e) {
     return res.status(500).json({ error: 'internal error' });
   }

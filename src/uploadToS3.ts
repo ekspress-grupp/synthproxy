@@ -59,7 +59,10 @@ export default async (fileName: string) => {
 
   return new Promise<string>((resolve, reject) => {
     client.presignedUrl('GET', S3_BUCKET, s3FilePath, (err, presignedUrl) => {
-      if (err) reject(err);
+      if (err) {
+        reject(err);
+        return;
+      }
       resolve(presignedUrl);
     });
   });

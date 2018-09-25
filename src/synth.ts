@@ -1,9 +1,9 @@
 import audioConvert from './audioConvert';
+import { STORAGE_DRIVER } from './config';
 import execTts from './execTts';
 import getMeta from './getMeta';
 import uploadToS3 from './uploadToS3';
 import writeToTmpFile from './writeToTmpFile';
-import { STORAGE_DRIVER } from './config';
 
 interface IOutputMeta {
   voice_name: string;

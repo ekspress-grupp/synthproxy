@@ -1,8 +1,8 @@
-import { filesDir } from './path';
-import { join as joinPath } from 'path';
+import { unlink } from 'fs';
 import { contentType } from 'mime-types';
 import { Client } from 'minio';
-import { unlink } from 'fs';
+import { join as joinPath } from 'path';
+import { filesDir } from './path';
 
 import {
   S3_ACCESS_KEY,

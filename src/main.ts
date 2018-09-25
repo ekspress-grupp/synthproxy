@@ -1,6 +1,6 @@
-import api from './api';
 import * as bodyParser from 'body-parser';
 import * as express from 'express';
+import api from './api';
 import { httpServerTimeoutMsec, maxPostSize, port, publicUrl } from './config';
 
 const app: express.Express = express();

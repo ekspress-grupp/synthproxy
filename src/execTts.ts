@@ -1,7 +1,7 @@
 import { execFile } from 'child_process';
 import { basename } from 'path';
-import { filesDir, lexFile, lexdFile, voiceFile } from './path';
 import { tmpName } from 'tmp';
+import { filesDir, lexdFile, lexFile, voiceFile } from './path';
 
 const getVoiceFilePath = async (): Promise<string> =>
   new Promise<string>(resolve => {

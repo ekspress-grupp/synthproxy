@@ -1,12 +1,12 @@
-import { ROOT_URL } from '../config';
 import { Express, Request, Response } from 'express';
 import * as fs from 'fs';
 import { safeLoad } from 'js-yaml';
 import {
-  setup as swaggerSetup,
   serve as swaggerServe,
+  setup as swaggerSetup,
 } from 'swagger-ui-express';
 import { URL } from 'url';
+import { ROOT_URL } from '../config';
 import { swaggerFile } from '../path';
 
 const getSwaggerData = async () =>

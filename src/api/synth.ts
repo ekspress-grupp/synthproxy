@@ -1,5 +1,5 @@
-import synth from '../synth';
 import { publicUrl } from '../config';
+import synth from '../synth';
 
 export default async (req: any, res: any) => {
   const { text } = req.body;

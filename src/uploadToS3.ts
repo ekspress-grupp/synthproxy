@@ -6,12 +6,14 @@ import { Client } from 'minio';
 import * as fs from 'fs';
 import { filesDir } from './synth';
 
-const S3_BUCKET = String(process.env.S3_BUCKET);
-const S3_ENDPOINT = String(process.env.S3_END_POINT);
-const S3_PORT = parseInt(process.env.S3_PORT as any, 10);
-const S3_USE_SSL = S3_PORT === 443;
-const S3_ACCESS_KEY = String(process.env.S3_ACCESS_KEY);
-const S3_SECRET_KEY = String(process.env.S3_SECRET_KEY);
+import {
+  S3_BUCKET,
+  S3_ENDPOINT,
+  S3_PORT,
+  S3_USE_SSL,
+  S3_ACCESS_KEY,
+  S3_SECRET_KEY,
+} from './config';
 
 let client: Client;
 

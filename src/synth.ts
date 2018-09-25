@@ -4,9 +4,9 @@ import execTts from './execTts';
 import getMeta from './getMeta';
 import uploadToS3 from './uploadToS3';
 import writeToTmpFile from './writeToTmpFile';
+import { STORAGE_DRIVER } from './config';
 
 export const filesDir = path.join(__dirname, '../public');
-const STORAGE_DRIVER = String(process.env.STORAGE_DRIVER);
 
 interface IOutputMeta {
   voice_name: string;

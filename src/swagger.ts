@@ -8,13 +8,9 @@ import {
   serve as swaggerServe,
   setup as swaggerSetup,
 } from 'swagger-ui-express';
+import { ROOT_URL } from './config';
 
 const swaggerFile: string = path.join(__dirname, '../swagger.yml');
-
-// FIXME: this value should perhaps not taken here but from some central config module
-const ROOT_URL: string = String(
-  process.env.ROOT_URL || 'http://localhost:3382/synth/v1',
-);
 
 const getSwaggerData = async () =>
   new Promise(resolve => {

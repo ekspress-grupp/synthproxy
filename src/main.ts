@@ -1,25 +1,26 @@
 import * as bodyParser from 'body-parser';
 import * as express from 'express';
 import { hostname } from 'os';
+import {
+  httpServerTimeoutMsec,
+  maxPostSize,
+  MONOCHART_APP_VERSION,
+  port,
+  publicUrl,
+} from './config';
 import swagger from './swagger';
 import synth, { filesDir } from './synth';
 
 const app: express.Express = express();
-const port = process.env.PORT || 3382;
-const publicUrl =
-  process.env.PUBLIC_URL || `http://localhost:${port}/synth/v1/files`;
 
-app.use(bodyParser.urlencoded({ limit: '50mb', extended: false }));
-app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: maxPostSize, extended: false }));
+app.use(bodyParser.json({ limit: maxPostSize }));
 
 // add swagger tooling
 swagger(app, true);
 
 app.get('/synth/v1/health_check', (req, res) => {
-  res.send(
-    // MONOCHART_APP_VERSION is present in k8s deployment
-    `ok:${+new Date()}[${hostname()}][${process.env.MONOCHART_APP_VERSION}]`,
-  );
+  res.send(`ok:${+new Date()}[${hostname()}][${MONOCHART_APP_VERSION}]`);
 });
 
 app.use('/synth/v1/files', express.static(filesDir));
@@ -52,4 +53,4 @@ const server = app.listen(port, () => {
 // set long timeout to avoid node http server killing connection
 // @link https://github.com/expressjs/express/issues/3330
 // it can take quite a long time time to make some bigger articles tts
-server.setTimeout(30 * 60 * 1000);
+server.setTimeout(httpServerTimeoutMsec);

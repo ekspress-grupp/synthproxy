@@ -12,7 +12,6 @@ services:
       PUBLIC_URL: "http://localhost:3382/synth/v1/files"
       ROOT_URL: "http://localhost:3382/synth/v1"
     env_file: .env
-    working_dir: /app
     command: yarn start
     logging:
       driver: json-file

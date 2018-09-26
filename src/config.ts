@@ -20,7 +20,7 @@ export const S3_SECRET_KEY = String(env.S3_SECRET_KEY);
 // MONOCHART_APP_VERSION is present in k8s deployment
 export const MONOCHART_APP_VERSION = env.MONOCHART_APP_VERSION || '';
 
-export const HTTP_MAX_POST_SIZE = '50m';
+export const HTTP_MAX_POST_SIZE = '50mb';
 
 /**
  * set long timeout to avoid node http server killing connection

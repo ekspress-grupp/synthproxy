@@ -14,8 +14,7 @@ const getVoiceFilePath = async (): Promise<string> =>
   });
 
 /* tslint:disable:prettier */
-const getSynthtsArguments = (inputFile: string, outputFile: string): string[] => {
-  return [
+const getSynthtsArguments = (inputFile: string, outputFile: string): string[] => [
     '-lex', lexFile,
     '-lexd', lexdFile,
     '-m', voiceFile,
@@ -23,7 +22,6 @@ const getSynthtsArguments = (inputFile: string, outputFile: string): string[] =>
     '-f', inputFile,
     '-o', outputFile,
   ];
-};
 /* tslint:enable:prettier */
 
 export default async (tmpFile: string): Promise<string> =>

@@ -29,6 +29,13 @@ docker run --rm -v $(pwd)/spool:/spool \
     -f /spool/in.txt -o /spool/out_tnu.wav
 ```
 
+## Test API Server
+
+```
+yarn start
+curl -X POST "http://localhost:3382/synth/v1/synth" --data "extension=mp3&text=test kala"
+```
+
 ## Setup (docker-compose)
 
 ```sh

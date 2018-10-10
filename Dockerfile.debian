@@ -24,7 +24,7 @@ RUN make install
 # replace binary with pre-built version, as the built version segfaults
 COPY --from=egrupp/synthproxy:synthts-v2 /usr/bin/synthts_et .
 
-FROM node:8-stretch
+FROM node:10-stretch
 
 # install ffmpeg
 RUN apt-get update \

@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=egrupp/synthproxy:synthts-v3
+ARG BASE_IMAGE=egrupp/synthproxy:synthts-v4
 
 # build node app as separate stage
 # https://nodejs.org/en/docs/guides/nodejs-docker-webapp/

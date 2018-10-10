@@ -30,12 +30,11 @@ export default class Tempfiles {
 
   public async cleanup(): Promise<void> {
     const promises = [];
-    for (const file of this.files) {
+    while (this.files.length) {
+      const file = String(this.files.pop());
       promises.push(unlink(file));
     }
 
     await Promise.all(promises);
-
-    this.files = [];
   }
 }

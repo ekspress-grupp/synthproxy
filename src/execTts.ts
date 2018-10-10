@@ -3,16 +3,6 @@ import { basename } from 'path';
 import { tmpName } from 'tmp';
 import { filesDir, lexdFile, lexFile, voiceFile } from './path';
 
-const getVoiceFilePath = async (): Promise<string> =>
-  new Promise<string>(resolve => {
-    tmpName(
-      { template: `${filesDir}/XXXXXX.wav` },
-      (err: Error, filename: string) => {
-        resolve(filename);
-      },
-    );
-  });
-
 // prettier-ignore
 const getSynthtsArguments = (inputFile: string, outputFile: string): string[] => [
     '-lex', lexFile,
@@ -23,12 +13,11 @@ const getSynthtsArguments = (inputFile: string, outputFile: string): string[] =>
     '-o', outputFile,
   ];
 
-export default async (tmpFile: string): Promise<string> =>
+export default async (textFile: string, audioFile: string): Promise<string> =>
   new Promise<string>(async (resolve, reject) => {
-    const audioFile = await getVoiceFilePath();
-    const args = getSynthtsArguments(tmpFile, audioFile);
+    const args = getSynthtsArguments(textFile, audioFile);
 
-    const child = execFile('synthts_et', args, (error, stdout, stderr) => {
+    execFile('synthts_et', args, (error, stdout, stderr) => {
       if (error) {
         console.error('synthts_et-exec', error);
         reject(error);
@@ -39,6 +28,6 @@ export default async (tmpFile: string): Promise<string> =>
       console.log(`stdout: ${stdout}`);
       console.log(`stderr: ${stderr}`);
 
-      resolve(basename(audioFile));
+      resolve();
     });
   });

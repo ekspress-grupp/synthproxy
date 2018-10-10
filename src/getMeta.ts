@@ -1,6 +1,5 @@
 import * as ffmpeg from 'fluent-ffmpeg';
 import * as path from 'path';
-import { filesDir } from './path';
 
 interface Imeta {
   duration: number;
@@ -8,9 +7,8 @@ interface Imeta {
   file_extension: string;
 }
 
-export default (filename: string): Promise<Imeta> =>
+export default (file: string): Promise<Imeta> =>
   new Promise(resolve => {
-    const file = path.join(filesDir, filename);
     ffmpeg.ffprobe(file, (err, metadata) => {
       if (err) {
         throw err;
@@ -22,6 +20,5 @@ export default (filename: string): Promise<Imeta> =>
         file_extension: metadata.format.format_name,
       };
       resolve(meta);
-      return;
     });
   });

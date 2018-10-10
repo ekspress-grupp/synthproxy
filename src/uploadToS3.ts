@@ -1,4 +1,3 @@
-import { unlink } from 'fs';
 import { contentType } from 'mime-types';
 import { Client } from 'minio';
 import { join as joinPath } from 'path';
@@ -48,13 +47,6 @@ export default async (fileName: string) => {
         resolve();
       },
     );
-  });
-
-  unlink(fileToUpload, (err: Error) => {
-    if (err) {
-      throw err;
-    }
-    console.log('removed local file', fileToUpload);
   });
 
   return new Promise<string>((resolve, reject) => {

@@ -1,11 +1,11 @@
+import { basename } from 'path';
 import audioConvert from './audioConvert';
+import { STORAGE_DRIVER } from './config';
 import execTts from './execTts';
 import getMeta from './getMeta';
+import { filesDir } from './path';
 import uploadToS3 from './uploadToS3';
 import util from './util';
-import { STORAGE_DRIVER } from './config';
-import { basename } from 'path';
-import { filesDir } from './path';
 
 interface IOutputMeta {
   voice_name: string;

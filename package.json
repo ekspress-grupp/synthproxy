@@ -3,13 +3,13 @@
   "license": "UNLICENSED",
   "main": "build/main.js",
   "scripts": {
-    "start": "nodemon --exec \"ts-node src/main.ts\"",
-    "start-debugger": "nodemon nodemon --exec \"node --inspect --require ts-node/register src/main.ts\"",
     "build": "tsc",
     "lint": "tslint --format verbose --project tsconfig.json",
-    "swagger:lint": "swagger-tools validate swagger.yml",
+    "precommit": "lint-staged",
     "prettier": "prettier --config ./.prettierrc.yaml --write \"{src,test}/**/*.{ts,json,md}\" \"**/*.md\"",
-    "precommit": "lint-staged"
+    "start": "nodemon --exec \"ts-node src/main.ts\"",
+    "start-debugger": "nodemon nodemon --exec \"node --inspect --require ts-node/register src/main.ts\"",
+    "swagger:lint": "swagger-tools validate swagger.yml"
   },
   "dependencies": {
     "body-parser": "^1.18.3",

@@ -1,9 +1,3 @@
-import tempfile from './tempfile';
-import unlink from './unlink';
-import writefile from './writefile';
-
-export default {
-  tempfile,
-  unlink,
-  writefile,
-};
+export { default as tempfile } from './tempfile';
+export { default as unlink } from './unlink';
+export { default as writefile } from './writefile';

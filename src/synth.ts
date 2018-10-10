@@ -5,7 +5,7 @@ import execTts from './execTts';
 import getMeta from './getMeta';
 import { filesDir } from './path';
 import uploadToS3 from './uploadToS3';
-import util from './util';
+import { tempfile, unlink, writefile } from './util';
 
 interface IOutputMeta {
   voice_name: string;
@@ -35,12 +35,12 @@ export default async (
 
   // create wav
   const [ttsFile, wavFile] = await Promise.all([
-    util.tempfile(filesDir, 'txt'),
-    util.tempfile(filesDir, 'wav'),
+    tempfile(filesDir, 'txt'),
+    tempfile(filesDir, 'wav'),
   ]);
-  await util.writefile(ttsFile, text);
+  await writefile(ttsFile, text);
   await execTts(ttsFile, wavFile);
-  await util.unlink(ttsFile);
+  await unlink(ttsFile);
 
   // optionally convert
   if (options.extension) {
@@ -49,9 +49,9 @@ export default async (
         `file extension '${options.extension}' not supported! (try mp3?)`,
       );
     }
-    const mp3File = await util.tempfile(filesDir, options.extension);
+    const mp3File = await tempfile(filesDir, options.extension);
     await audioConvert(wavFile, mp3File);
-    await util.unlink(wavFile);
+    await unlink(wavFile);
     outputFile = mp3File;
   } else {
     outputFile = wavFile;
@@ -72,7 +72,7 @@ export default async (
 
   if (STORAGE_DRIVER === 'S3') {
     result.url = await uploadToS3(outputFile);
-    await Promise.all([util.unlink(outputFile), util.unlink(wavFile)]);
+    await Promise.all([unlink(outputFile), unlink(wavFile)]);
   } else {
     const fileName = basename(outputFile);
     result.url = `${publicUrl}/${fileName}`;

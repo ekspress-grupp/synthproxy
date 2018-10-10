@@ -12,6 +12,7 @@ export default async (req: Request, res: Response) => {
   try {
     urlAndMeta = await synth(PUBLIC_URL, text, req.body);
   } catch (e) {
+    console.error('ERROR:', e);
     return res.status(500).json({ error: 'internal error' });
   }
 

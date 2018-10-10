@@ -4,6 +4,7 @@
   "main": "build/main.js",
   "scripts": {
     "build": "tsc",
+    "fix": "yarn run lint --fix && yarn run prettier fix",
     "lint": "tslint --format verbose --project tsconfig.json",
     "precommit": "lint-staged",
     "prettier": "prettier --config ./.prettierrc.yaml --write \"{src,test}/**/*.{ts,json,md}\" \"**/*.md\"",

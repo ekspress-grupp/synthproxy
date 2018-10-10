@@ -49,7 +49,6 @@ export default async (
     }
     const mp3File = await util.tempfile(filesDir, options.extension);
     await audioConvert(wavFile, mp3File);
-    console.log(mp3File);
     await util.unlink(wavFile);
     outputFile = mp3File;
   } else {

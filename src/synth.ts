@@ -34,8 +34,10 @@ export default async (
   let outputFile: string;
 
   // create wav
-  const ttsFile = await util.tempfile(filesDir, 'txt');
-  const wavFile = await util.tempfile(filesDir, 'wav');
+  const [ttsFile, wavFile] = await Promise.all([
+    util.tempfile(filesDir, 'txt'),
+    util.tempfile(filesDir, 'wav'),
+  ]);
   await util.writefile(ttsFile, text);
   await execTts(ttsFile, wavFile);
   await util.unlink(ttsFile);

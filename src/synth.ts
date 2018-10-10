@@ -5,7 +5,7 @@ import execTts from './execTts';
 import getMeta from './getMeta';
 import { filesDir } from './path';
 import uploadToS3 from './uploadToS3';
-import { tempfile, unlink, writefile } from './util';
+import { Tempfiles, writefile } from './util';
 
 interface IOutputMeta {
   voice_name: string;
@@ -30,53 +30,54 @@ export default async (
 ): Promise<IOutputData> => {
   console.log('text', text);
 
-  // output filename
-  let outputFile: string;
+  const tmpfiles = new Tempfiles(filesDir);
 
-  // create wav
-  const [ttsFile, wavFile] = await Promise.all([
-    tempfile(filesDir, 'txt'),
-    tempfile(filesDir, 'wav'),
-  ]);
-  await writefile(ttsFile, text);
-  await execTts(ttsFile, wavFile);
-  await unlink(ttsFile);
+  try {
+    // output filename
+    let outputFile: string;
 
-  // optionally convert
-  if (options.extension) {
-    if (options.extension !== 'mp3') {
-      throw new Error(
-        `file extension '${options.extension}' not supported! (try mp3?)`,
-      );
+    // create wav
+    const [ttsFile, wavFile] = await tmpfiles.createFiles(['txt', 'wav']);
+    await writefile(ttsFile, text);
+    await execTts(ttsFile, wavFile);
+
+    // optionally convert
+    if (options.extension) {
+      if (options.extension !== 'mp3') {
+        throw new Error(
+          `file extension '${options.extension}' not supported! (try mp3?)`,
+        );
+      }
+      const mp3File = await tmpfiles.createFile(options.extension);
+      await audioConvert(wavFile, mp3File);
+      outputFile = mp3File;
+    } else {
+      outputFile = wavFile;
     }
-    const mp3File = await tempfile(filesDir, options.extension);
-    await audioConvert(wavFile, mp3File);
-    await unlink(wavFile);
-    outputFile = mp3File;
-  } else {
-    outputFile = wavFile;
+
+    const tempMeta = await getMeta(outputFile);
+    const meta: IOutputMeta = {
+      voice_name: 'tonu',
+      audio_duration: tempMeta.duration,
+      file_size: tempMeta.size,
+      file_extension: tempMeta.file_extension,
+    };
+
+    const result = {
+      meta,
+      url: '',
+    };
+
+    if (STORAGE_DRIVER === 'S3') {
+      result.url = await uploadToS3(outputFile);
+    } else {
+      const fileName = basename(outputFile);
+      result.url = `${publicUrl}/${fileName}`;
+    }
+    return result;
+  } catch (e) {
+    throw e;
+  } finally {
+    await tmpfiles.cleanup();
   }
-
-  const tempMeta = await getMeta(outputFile);
-  const meta: IOutputMeta = {
-    voice_name: 'tonu',
-    audio_duration: tempMeta.duration,
-    file_size: tempMeta.size,
-    file_extension: tempMeta.file_extension,
-  };
-
-  const result = {
-    meta,
-    url: '',
-  };
-
-  if (STORAGE_DRIVER === 'S3') {
-    result.url = await uploadToS3(outputFile);
-    await Promise.all([unlink(outputFile), unlink(wavFile)]);
-  } else {
-    const fileName = basename(outputFile);
-    result.url = `${publicUrl}/${fileName}`;
-  }
-
-  return result;
 };

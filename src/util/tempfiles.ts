@@ -28,6 +28,15 @@ export default class Tempfiles {
     return files;
   }
 
+  public preserve(filename: string): void {
+    const index = this.files.indexOf(filename);
+
+    // tslint:disable:no-bitwise
+    if (~index) {
+      this.files.splice(index, 1);
+    }
+  }
+
   public async cleanup(): Promise<void> {
     const promises = [];
     while (this.files.length) {

@@ -71,6 +71,8 @@ export default async (
     if (STORAGE_DRIVER === 'S3') {
       result.url = await uploadToS3(outputFile);
     } else {
+      tmpfiles.preserve(outputFile);
+
       const fileName = basename(outputFile);
       result.url = `${publicUrl}/${fileName}`;
     }

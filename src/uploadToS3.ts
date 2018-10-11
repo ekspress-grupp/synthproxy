@@ -1,7 +1,6 @@
 import { contentType } from 'mime-types';
 import { Client } from 'minio';
-import { join as joinPath } from 'path';
-import { filesDir } from './path';
+import { basename } from 'path';
 
 import {
   S3_ACCESS_KEY,
@@ -14,7 +13,7 @@ import {
 
 let client: Client;
 
-export default async (fileName: string) => {
+export default async (fileToUpload: string) => {
   if (!client) {
     client = new Client({
       endPoint: S3_ENDPOINT,
@@ -25,9 +24,9 @@ export default async (fileName: string) => {
     });
   }
 
-  const fileToUpload = joinPath(filesDir, fileName);
+  const fileName = basename(fileToUpload);
   const metaData = {
-    'Content-Type': contentType(fileName),
+    'Content-Type': contentType(fileToUpload),
   };
   const d = new Date();
   const s3FilePath = `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}/${d.getHours()}/${d.getMinutes()}${d.getMilliseconds()}-${fileName}`;

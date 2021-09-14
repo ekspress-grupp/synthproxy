@@ -73,16 +73,18 @@
     "@types/express-serve-static-core" "*"
     "@types/serve-static" "*"
 
-"@types/fluent-ffmpeg@^2.1.7":
+"@types/fluent-ffmpeg@2.1.7":
   version "2.1.7"
-  resolved "https://registry.yarnpkg.com/@types%2ffluent-ffmpeg/-/fluent-ffmpeg-2.1.7.tgz#e7905af52754de19b0fb5263102cbc957ac6cac9"
+  resolved "https://registry.yarnpkg.com/@types/fluent-ffmpeg/-/fluent-ffmpeg-2.1.7.tgz#e7905af52754de19b0fb5263102cbc957ac6cac9"
+  integrity sha512-zxxeOIns+6C7oQbDRiUoSx8GuuQVJKksP2unh6f8g8/1Yn7ZiBD4voPSIG0zzdQbyRp6UxU+wo9nSpbHs4iETg==
   dependencies:
     "@types/events" "*"
     "@types/node" "*"
 
-"@types/js-yaml@^3.11.2":
+"@types/js-yaml@3.11.2":
   version "3.11.2"
-  resolved "https://registry.yarnpkg.com/@types%2fjs-yaml/-/js-yaml-3.11.2.tgz#699ad86054cc20043c30d66a6fcde30bbf5d3d5e"
+  resolved "https://registry.yarnpkg.com/@types/js-yaml/-/js-yaml-3.11.2.tgz#699ad86054cc20043c30d66a6fcde30bbf5d3d5e"
+  integrity sha512-JRDtMPEqXrzfuYAdqbxLot1GvAr/QvicIZAnOAigZaj8xVMhuSJTg/xsv9E1TvyL+wujYhRLx9ZsQ0oFOSmwyA==
 
 "@types/mime-types@^2.1.0":
   version "2.1.0"
@@ -102,9 +104,10 @@
   version "10.10.1"
   resolved "https://registry.yarnpkg.com/@types%2fnode/-/node-10.10.1.tgz#d5c96ca246a418404914d180b7fdd625ad18eca6"
 
-"@types/node@^9.6.8":
-  version "9.6.31"
-  resolved "https://registry.yarnpkg.com/@types%2fnode/-/node-9.6.31.tgz#4d1722987f8d808b4c194dceb8c213bd92f028e5"
+"@types/node@^10":
+  version "10.17.60"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-10.17.60.tgz#35f3d6213daed95da7f0f73e75bcc6980e90597b"
+  integrity sha512-F0KIgDJfy2nA3zMLmWGKxcH2ZVEtCZXHHdOQs2gSaQ27+lNeEfGxzkIw90aXswATX7AZ33tahPbzy6KAfUreVw==
 
 "@types/parse-json@^4.0.0":
   version "4.0.0"

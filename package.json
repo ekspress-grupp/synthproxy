@@ -33,7 +33,7 @@
     "@types/swagger-ui-express": "^3.0.0",
     "@types/tmp": "^0.0.33",
     "husky": "^0.14.3",
-    "lint-staged": "^7.2.0",
+    "lint-staged": "^11.1.2",
     "nodemon": "^1.17.3",
     "prettier": "^1.12.1",
     "swagger-tools": "^0.10.4",
